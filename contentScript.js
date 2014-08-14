@@ -5,8 +5,19 @@
 function log(obj){
     console.log(obj);
 }
+// var _ = require('dsaf');
+
+var springSet = [
+    '#699a33',
+    '#92c060',
+    '#c2e79a',
+    '#457313',
+    '#284d00'
+];
+
 
 var colorPreset = [];
+
 colorPreset=[
     '#f5f7e1',
     '#fff2c9',
@@ -16,7 +27,24 @@ colorPreset=[
     '#d1b9a7'
 ];
 
-// var backgroundColor;
+baseColors = [
+    'rgb(128, 144, 166)',
+    'rgb(170, 82, 72)',
+    'rgb(240, 213, 134)',
+    'rgb(242, 93, 50)',
+    'rgb(237, 95, 93)',
+    'rgb(188, 204, 194)',
+    'rgb(70, 170, 172)',
+    'rgb(207, 89, 77)',
+    'rgb(250, 179, 27)',
+    'rgb(43, 127, 138)',
+    'rgb(192, 188, 88)',
+    'rgb(122, 131, 128)'
+];
+
+colorPreset = baseColors;
+
+// debugger;
 
 function getRandomInt (upperBound) {
     return Math.floor((Math.random() * upperBound) + 1) - 1;
@@ -66,20 +94,24 @@ classNames = classNames.unique();
 var colorMapping = {};
 var colorIndex = getRandomInt(colorPreset.length);
 for (var i = 0; i < classNames.length; i++) {
+
+
     var elementsByClass = document.getElementsByClassName(classNames[i]);
     if (elementsByClass.length){
+
         if (!(classNames[i] in colorMapping)){
-            log("Assigning class: " + classNames[i]);
+            
             colorMapping[classNames[i]] = {};
             // colorMapping[classNames[i]].backgroundColor = colorPreset[colorIndex++ % colorPreset.length];
             colorMapping[classNames[i]].color = colorPreset[colorIndex++ % colorPreset.length];
         }
     }
     else {
-        log("Deleting class: " + classNames[i]);
         classNames.splice(i, 1);
     }
 };
+
+// debugger;
 
 // var index = 0;
 for (var i = 0; i < classNames.length; i++) {
@@ -97,6 +129,8 @@ for (var i = 0; i < classNames.length; i++) {
         // elementsByClass[j].style.backgroundColor = colorMapping[classNames[i]].backgroundColor;
     };
 };
+
+
 
 
 
