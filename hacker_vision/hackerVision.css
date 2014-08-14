@@ -1,0 +1,130 @@
+html[hc="a1"] {
+  -webkit-filter: invert() contrast(80%) brightness(120%) contrast(85%) invert();
+}
+html[hc="a1"] img[src*="jpg"],
+html[hc="a1"] img[src*="jpeg"],
+html[hc="b1"] img[src*="jpg"],
+html[hc="b1"] img[src*="jpeg"] {
+  -webkit-filter: brightness(100%) contrast(100%);
+}
+html[hc="a2"] {
+  -webkit-filter: grayscale();
+}
+html[hc="a3"] {
+  -webkit-filter: invert() contrast(86%);
+}
+html[hc="a3"] img,
+html[hc="b3"] img {
+  -webkit-filter: invert();
+}
+/* General Videos Fix */
+html[hc="a3"] video:not(.flideo),
+html[hc="b3"] video:not(.flideo) {
+  -webkit-filter: invert();
+}
+
+/* Vimeo Fix */
+html[hc="a3"] .flideo,
+html[hc="b3"] .flideo {
+  -webkit-filter: invert();
+}
+
+/* Flash Videos Fix */
+html[hc="a3"] object[type="application/x-shockwave-flash"],
+html[hc="b3"] object[type="application/x-shockwave-flash"]{
+  -webkit-filter: invert();
+}
+/* General Videos Fix */
+html[hc="a3"] embed[type="application/x-shockwave-flash"],
+html[hc="b3"] embed[type="application/x-shockwave-flash"] {
+  -webkit-filter: invert();
+}
+/* Youtube Fix */
+html[hc="a3"] #movie_player,
+html[hc="b3"] #movie_player,
+html[hc="a3"] #player-mole-container,
+html[hc="b3"] #player-mole-container,
+html[hc="a3"] #theater-background,
+html[hc="b3"] #theater-background,
+html[hc="a3"] .html5-video-controls,
+html[hc="b3"] .html5-video-controls {
+  -webkit-filter: invert();
+}
+html[hc="a3"] .html5-video-container,
+html[hc="b3"] .html5-video-container {
+  background: #fff;
+}
+
+/* Netflix Fix */
+html[hc="a3"] #SLPlayer,
+html[hc="b3"] #SLPlayer {
+  -webkit-filter: invert();
+}
+/* Amazon Thumbnails Fix */
+html[hc="a3"] .swatchImageOverlay,
+html[hc="b3"] .swatchImageOverlay {
+  -webkit-filter: invert();
+}
+/* Youtube Embedded Fix 
+html[hc="a3"] .youtube-player,
+html[hc="b3"] .youtube-player {
+  -webkit-filter: invert();
+}*/
+/* iFrame Videos Fix */
+html[hc="a3"] iframe:not(.youtube-player, #d),
+html[hc="b3"] iframe:not(.youtube-player, #d) {
+  -webkit-filter: invert();
+}
+/* youTube html5 videos fix 12/9/13 */
+html[hc="a3"] body[data-player-size=fullscreen] .html5-video-container,
+html[hc="b3"] body[data-player-size=fullscreen] .html5-video-container {
+  -webkit-filter: invert();
+  background-color: #EEE;
+}
+
+/* Google Images Fix */
+html[hc="a3"] #irc_cc,
+html[hc="b3"] #irc_cc {
+  background-color: #FFF;
+}
+
+/* Facebook Photos Fix */
+html[hc="a3"] .fbStarGrid,
+html[hc="b3"] .fbStarGrid,
+html[hc="a3"] .fbPhotosGrid,
+html[hc="b3"] .fbPhotosGrid {
+  -webkit-filter: invert();
+}
+/* Vimeo Videos Fix 
+html[hc="a3"] #cols[itemprop="video"],
+html[hc="b3"] #cols[itemprop="video"] {
+  -webkit-filter: invert();
+}*/
+
+/*Wikipedia Math Equations Fix*/
+html[hc="a3"] .mwe-math-fallback-png-inline,
+html[hc="b3"] .mwe-math-fallback-png-inline {
+  -webkit-filter: invert(0.1);
+}
+
+html[hc="a4"] {
+  -webkit-filter: invert() contrast(80%) brightness(117%) contrast(200%) grayscale();
+}
+
+html[hc="a4"] img[src*="jpg"],
+html[hc="a4"] img[src*="jpeg"],
+html[hc="b4"] img[src*="jpg"],
+html[hc="b4"] img[src*="jpeg"] {
+  -webkit-filter: invert();
+}
+
+/* Google Images Fix BETA*/
+#irc_cl :not(#irc_mi){
+  background-color: rgb(171, 171, 171);
+}
+
+/* Google Maps Fix */
+html[hc="a3"] #tileContainer,
+html[hc="b3"] #tileContainer {
+  -webkit-filter: contrast(80%) brightness(120%);
+}
