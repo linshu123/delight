@@ -12,7 +12,11 @@
 
     "content_scripts":[
         {
-            "js":["background.js", "jquery-2.1.1.js"],
+            "js":[
+                "libraries/jquery-2.1.1.js",
+                "libraries/lodash.js",
+                "background.js"
+            ],
             "matches": ["http://*/*", "https://*/*"]
         }   
     ],
