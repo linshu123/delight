@@ -16,7 +16,7 @@ colorPreset=[
     '#d1b9a7'
 ];
 
-var backgroundColor;
+// var backgroundColor;
 
 function getRandomInt (upperBound) {
     return Math.floor((Math.random() * upperBound) + 1) - 1;
@@ -49,7 +49,7 @@ var all = document.getElementsByTagName("*");
 var classNames = [];
 
 for (var i = 0; i < all.length; i++) {
-    
+
     if (!all[i].className){
         continue;
     }
@@ -62,31 +62,41 @@ for (var i = 0; i < all.length; i++) {
 
 classNames = classNames.unique();
 
-// var index = 0;
-// // console.log(colorMapping);
-// for (var color in colorMapping){
-//     index++;
-//     colorMapping[color] = colorPreset[index % colorPreset.length];   
-// }
-// log(all);
-
-var index = 0;
+// Take all the unique class names and make a dictionary. 
+var colorMapping = {};
+var colorIndex = getRandomInt(colorPreset.length);
 for (var i = 0; i < classNames.length; i++) {
-    elementsByClass = document.getElementsByClassName(classNames[i]);
-    for (var j = 0; j < elementsByClass.length; j++) {
-        elementsByClass[j].style.color = colorPreset[index++ % colorPreset.length];
-        elementsByClass[j].style.backgroundColor = backgroundColor;
-    };
+    var elementsByClass = document.getElementsByClassName(classNames[i]);
+    if (elementsByClass.length){
+        if (!(classNames[i] in colorMapping)){
+            log("Assigning class: " + classNames[i]);
+            colorMapping[classNames[i]] = {};
+            // colorMapping[classNames[i]].backgroundColor = colorPreset[colorIndex++ % colorPreset.length];
+            colorMapping[classNames[i]].color = colorPreset[colorIndex++ % colorPreset.length];
+        }
+    }
+    else {
+        log("Deleting class: " + classNames[i]);
+        classNames.splice(i, 1);
+    }
 };
 
+// var index = 0;
+for (var i = 0; i < classNames.length; i++) {
+    var elementsByClass = document.getElementsByClassName(classNames[i]);
+    if (!colorMapping[classNames[i]])
+        continue;
+    for (var j = 0; j < elementsByClass.length; j++) {
 
-// for (var i=0, max=all.length; i < max; i++) {
-//      // Do something with the element here
-//      all[i].style.backgroundColor = colorPreset[i % colorPreset.length];
-//      all[i].style.color = colorPreset[i % colorPreset.length];
-//      // all[i].style.backgroundColor= colorMapping[all[i].style.backgroundColor];
-//      // all[i].style.color= colorMapping[all[i].style.color];
-// }
+        log("classname: " + classNames[i]);
+        log(colorMapping[classNames[i]].color);
+        log(colorMapping[classNames[i]].backgroundColor);
+
+        elementsByClass[j].style.color = colorMapping[classNames[i]].color;
+        elementsByClass[j].style.backgroundColor = backgroundColor;
+        // elementsByClass[j].style.backgroundColor = colorMapping[classNames[i]].backgroundColor;
+    };
+};
 
 
 
