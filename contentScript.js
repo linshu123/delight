@@ -110,39 +110,6 @@ function parseColors(colors, threshold){
 
 // ************** Helper functions end **************
 
-
-var springSet = [
-    '#699a33',
-    '#92c060',
-    '#c2e79a',
-    '#457313',
-    '#284d00'
-];
-
-var brownPreset=[
-    '#f5f7e1',
-    '#fff2c9',
-    '#f2caa9',
-    '#4f423e',
-    '#997d6a',
-    '#d1b9a7'
-];
-
-var baseColors = [
-    'rgb(128, 144, 166)',
-    'rgb(170, 82, 72)',
-    'rgb(240, 213, 134)',
-    'rgb(242, 93, 50)',
-    'rgb(237, 95, 93)',
-    'rgb(188, 204, 194)',
-    'rgb(70, 170, 172)',
-    'rgb(207, 89, 77)',
-    'rgb(250, 179, 27)',
-    'rgb(43, 127, 138)',
-    'rgb(192, 188, 88)',
-    'rgb(122, 131, 128)'
-];
-
 function getClassNamesOnPage(){
 
     var all = document.getElementsByTagName("*");
@@ -183,7 +150,7 @@ function createColorMapping(classNames, colorPreset){
             }
         }
         else {
-            classNames.splice(i, 1);
+            // classNames.splice(i, 1);
         }
     };
 
@@ -192,28 +159,66 @@ function createColorMapping(classNames, colorPreset){
 
 function mapColors (colorMapping, backgroundColors) {
     
-    
     for (var className in colorMapping){
 
         var elementsByClass = document.getElementsByClassName(className);
         
         for (var j = 0; j < elementsByClass.length; j++) {
-
-            // log("classname: " + classNames[i]);
-            // log(colorMapping[classNames[i]].color);
-            // log(colorMapping[classNames[i]].backgroundColor);
-
             elementsByClass[j].style.color = colorMapping[className].color;
-            elementsByClass[j].style.backgroundColor = backgroundColors[0];
+            // elementsByClass[j].style.backgroundColor = backgroundColors[0];
         };
     }
-    
 }
 
-function main(){
+function setBackgroundColor(backgroundColor){
+
+    var all = document.getElementsByTagName("*");
+    for (var i = 0; i < all.length; i++) {
+        // if (all[i].style.backgroundImage.slice(4, -1)){
+        all[i].style.backgroundImage = 'none';
+        all[i].style.border = 'none';
+        // }
+        all[i].style.backgroundColor = backgroundColor;
+    };
+}
+
+var springSet = [
+    '#699a33',
+    '#92c060',
+    '#c2e79a',
+    '#457313',
+    '#284d00'
+];
+
+var brownPreset=[
+    '#f5f7e1',
+    '#fff2c9',
+    '#f2caa9',
+    '#4f423e',
+    '#997d6a',
+    '#d1b9a7'
+];
+
+var baseColors = [
+    'rgb(128, 144, 166)',
+    'rgb(170, 82, 72)',
+    'rgb(240, 213, 134)',
+    'rgb(242, 93, 50)',
+    'rgb(237, 95, 93)',
+    'rgb(188, 204, 194)',
+    'rgb(70, 170, 172)',
+    'rgb(207, 89, 77)',
+    'rgb(250, 179, 27)',
+    'rgb(43, 127, 138)',
+    'rgb(192, 188, 88)',
+    'rgb(122, 131, 128)'
+];
+
+// Self excuting function
+(function (){
 
     // Select preset colors.
-    var colorPreset = parseColors(baseColors, 120);
+    var colorPreset = parseColors(springSet, 120);
     var contentColors = colorPreset[1]; // Dark colors
     var backgroundColors = parseColors(colorPreset[0], 200)[0]; // Light colors
 
@@ -225,9 +230,10 @@ function main(){
     colorMapping = createColorMapping(classNames, contentColors);
     // Change the colors of those classes.
     mapColors(colorMapping, backgroundColors);
-}
+    // Set background color of everything.
+    setBackgroundColor(backgroundColors[getRandomInt(backgroundColors.length)]);
+})();
 
-main();
 
 
 
