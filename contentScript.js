@@ -228,7 +228,28 @@ var springSet = [
     '#92c060',
     '#c2e79a',
     '#457313',
-    '#284d00'
+    '#284d00',
+    '#A2DED0',
+    '#87D37C',
+    '#90C695',
+    '#26A65B',
+    '#03C9A9',
+    '#C8F7C5',
+    '#A2DED0',
+    '#87D37C',
+    '#90C695',
+    '#26A65B',
+    '#03C9A9',
+    '#68C3A3',
+    '#65C6BB',
+    '#1BBC9B',
+    '#1BA39C',
+    '#66CC99',
+    '#36D7B7',
+    '#C8F7C5',
+    '#86E2D5',
+    '#2ECC71',
+    '#16A085'
 ];
 
 var brownPreset=[
@@ -259,7 +280,7 @@ var baseColors = [
 (function (){
 
     // Select preset colors.
-    var colorPreset = parseColors(oceanSet, 120);
+    var colorPreset = parseColors(springSet, 120);
     var contentColors = colorPreset[1]; // Dark colors
     var everythingColor = contentColors[0];
     // contentColors.splice(1, 1);
