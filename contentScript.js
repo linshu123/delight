@@ -118,8 +118,10 @@ function getClassNamesOnPage(){
     for (var i = 0; i < all.length; i++) {
 
         if (!all[i].className){
-            continue;
+            all[i].setAttribute("class", "non-class");
         }
+        if (typeof(all[i]) == 'a')
+            all[i].setAttribute("class", "h-link");   
 
         // Parse "class-name-1 class-name-2" into ["class-name-1", "class-name-2"].
         var classList = all[i].className.split(/\s+/);
@@ -149,16 +151,20 @@ function createColorMapping(classNames, colorPreset){
                 colorMapping[classNames[i]].color = colorPreset[colorIndex++ % colorPreset.length];
             }
         }
-        else {
-            // classNames.splice(i, 1);
-        }
     };
 
     return colorMapping;
 }
 
-function mapColors (colorMapping, backgroundColors) {
-    
+function mapEverythingColors (color) {
+    var all = document.getElementsByTagName("*");
+    for (var i = 0; i < all.length; i++) {
+        all[i].style.color = color;
+    };
+}
+
+function mapClassColors (colorMapping, backgroundColors) {
+
     for (var className in colorMapping){
 
         var elementsByClass = document.getElementsByClassName(className);
@@ -255,6 +261,8 @@ var baseColors = [
     // Select preset colors.
     var colorPreset = parseColors(oceanSet, 120);
     var contentColors = colorPreset[1]; // Dark colors
+    var everythingColor = contentColors[0];
+    // contentColors.splice(1, 1);
     var backgroundColors = parseColors(colorPreset[0], 180)[0]; // Light colors
 
     log(backgroundColors);
@@ -263,8 +271,12 @@ var baseColors = [
     classNames = getClassNamesOnPage();
     // Assign a color to each class.
     colorMapping = createColorMapping(classNames, contentColors);
+
+    // Give a color to everything LOL
+    // mapEverythingColors(everythingColor);
+
     // Change the colors of those classes.
-    mapColors(colorMapping, backgroundColors);
+    mapClassColors(colorMapping, backgroundColors);
     // Set background color of everything.
     setBackgroundColor(backgroundColors[getRandomInt(backgroundColors.length)]);
 })();
