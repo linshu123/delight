@@ -26,6 +26,88 @@ Array.prototype.unique = function() {
     return arr; 
 }
 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+// Convert rgb colors to hex
+function rgbToHex(r, g, b) {
+    // debugger;
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+// Convert 'rgb(200, 12, 53)' to ["200", "12", "53"]
+function rgbStringToHex (rgbString) {
+    // debugger;
+    var rgb = rgbString.substring(4, rgbString.length-1)
+                       .replace(/ /g, '')
+                       .split(',');
+
+    return rgbToHex(parseInt(rgb[0]), 
+                    parseInt(rgb[1]), 
+                    parseInt(rgb[2]));
+}
+
+// Convert hex colors to rgb
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+// Get luminance of rgb color.
+function luminance(r, g, b) {
+    var a = [r,g,b].map(function(v) {
+        v /= 255;
+        return (v <= 0.03928) ?
+            v / 12.92 :
+            Math.pow( ((v+0.055)/1.055), 2.4 );
+        });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+// Get luminance of hex color. Return a number between 0 and 100.
+function getHexLumin (c) {
+    var c = c.substring(1);      // strip #
+    var rgb = parseInt(c, 16);   // convert rrggbb to decimal
+    var r = (rgb >> 16) & 0xff;  // extract red
+    var g = (rgb >>  8) & 0xff;  // extract green
+    var b = (rgb >>  0) & 0xff;  // extract blue
+
+    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    return luma;
+}
+
+// Parse Colors according to luminance.
+function parseColors(colors, threshold){
+    // Convert colors to hex.
+    
+    var hexColors = [];
+    for (var i = 0; i < colors.length; i++) {
+        if (colors[i][0] == '#'){
+            hexColors.push(colors[i]);
+        }
+        else 
+            hexColors.push(rgbStringToHex(colors[i]));
+    };
+
+    // Remove light colors.
+    var darkColors = [], lightColors =[];
+    for (var i = 0; i < hexColors.length; i++) {
+        log(getHexLumin(hexColors[i]));
+        if (getHexLumin(hexColors[i]) < threshold)
+            darkColors.push(hexColors[i]);
+        else
+            lightColors.push(hexColors[i]);
+    };
+
+    return [lightColors, darkColors];
+}
+
 // ************** Helper functions end **************
 
 
@@ -108,7 +190,7 @@ function createColorMapping(classNames, colorPreset){
     return colorMapping;
 }
 
-function mapColors (colorMapping) {
+function mapColors (colorMapping, backgroundColors) {
     
     
     for (var className in colorMapping){
@@ -122,8 +204,7 @@ function mapColors (colorMapping) {
             // log(colorMapping[classNames[i]].backgroundColor);
 
             elementsByClass[j].style.color = colorMapping[className].color;
-            // elementsByClass[j].style.backgroundColor = backgroundColor;
-            // elementsByClass[j].style.backgroundColor = colorMapping[classNames[i]].backgroundColor;
+            elementsByClass[j].style.backgroundColor = backgroundColors[0];
         };
     }
     
@@ -132,19 +213,18 @@ function mapColors (colorMapping) {
 function main(){
 
     // Select preset colors.
-    var colorPreset = baseColors;
+    var colorPreset = parseColors(baseColors, 120);
+    var contentColors = colorPreset[1]; // Dark colors
+    var backgroundColors = parseColors(colorPreset[0], 200)[0]; // Light colors
 
-    // Select one as background color and remove it from others.
-    var bgColorIndex = getRandomInt(colorPreset.length);
-    var backgroundColor = colorPreset[bgColorIndex];
-    colorPreset.splice(bgColorIndex, 1);
+    log(backgroundColors);
 
     // Get all class names.
     classNames = getClassNamesOnPage();
     // Assign a color to each class.
-    colorMapping = createColorMapping(classNames, colorPreset);
+    colorMapping = createColorMapping(classNames, contentColors);
     // Change the colors of those classes.
-    mapColors(colorMapping);
+    mapColors(colorMapping, backgroundColors);
 }
 
 main();
