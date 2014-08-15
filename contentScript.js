@@ -172,15 +172,50 @@ function mapColors (colorMapping, backgroundColors) {
 
 function setBackgroundColor(backgroundColor){
 
-    var all = document.getElementsByTagName("*");
-    for (var i = 0; i < all.length; i++) {
-        // if (all[i].style.backgroundImage.slice(4, -1)){
-        all[i].style.backgroundImage = 'none';
-        all[i].style.border = 'none';
-        // }
-        all[i].style.backgroundColor = backgroundColor;
+    var elementsWithoutBackgroundImage = $('*').filter(function() {
+        if (this.currentStyle) 
+                  return this.currentStyle['backgroundImage'] !== 'none';
+        else if (window.getComputedStyle)
+                  return document.defaultView.getComputedStyle(this,null)
+                                 .getPropertyValue('background-image') !== 'none';
+    });
+    // debugger;
+
+    for (var i = 0; i < elementsWithoutBackgroundImage.length; i++) {
+        // if (elementsWithoutBackgroundImage[i].style)
+            // elementsWithoutBackgroundImage[i].style.backgroundColor = backgroundColor;
     };
+    
+    // var all = document.getElementsByTagName("*");
+    // for (var i = 0; i < all.length; i++) {
+    //     // if (all[i].style.backgroundImage.slice(4, -1)){
+    //     // all[i].style.backgroundImage = 'none';
+    //     // all[i].style.border = 'none';
+    //     // }
+    //     if (!all[i].style.backgroundImage)
+    //         all[i].style.backgroundColor = backgroundColor;
+    // };
 }
+
+var oceanSet = [
+    '#4183D7',
+    '#59ABE3',
+    '#81CFE0',
+    '#52B3D9',
+    '#C5EFF7',
+    '#22A7F0',
+    '#3498DB',
+    '#19B5FE',
+    '#6BB9F0',
+    '#1E8BC3',
+    '#3A539B',
+    '#34495E',
+    '#2574A9',
+    '#1F3A93',
+    '#89C4F4',
+    '#4B77BE',
+    '#5C97BF'
+];
 
 var springSet = [
     '#699a33',
@@ -218,9 +253,9 @@ var baseColors = [
 (function (){
 
     // Select preset colors.
-    var colorPreset = parseColors(springSet, 120);
+    var colorPreset = parseColors(oceanSet, 120);
     var contentColors = colorPreset[1]; // Dark colors
-    var backgroundColors = parseColors(colorPreset[0], 200)[0]; // Light colors
+    var backgroundColors = parseColors(colorPreset[0], 180)[0]; // Light colors
 
     log(backgroundColors);
 

@@ -10,10 +10,17 @@
         "tabs", "http://*/*", "https://*/*"
     ],
 
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-    },
+    // "background": {
+    //     "scripts": ["background.js"],
+    //     "persistent": false
+    // },
+
+    "content_scripts": [
+        {
+          "matches": ["http://*/*", "https://*/*"],
+          "js": ["libraries/jquery-2.1.1.js", "contentScript.js"]
+        }
+    ],
 
     "browser_action": {
         "default_title": "Delight this page!",
