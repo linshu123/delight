@@ -4,6 +4,11 @@ function log(obj){
     console.log(obj);
 }
 
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
 function getRandomInt (upperBound) {
     return Math.floor((Math.random() * upperBound) + 1) - 1;
 }
@@ -98,7 +103,7 @@ function parseColors(colors, threshold){
     // Remove light colors.
     var darkColors = [], lightColors =[];
     for (var i = 0; i < hexColors.length; i++) {
-        log(getHexLumin(hexColors[i]));
+        
         if (getHexLumin(hexColors[i]) < threshold)
             darkColors.push(hexColors[i]);
         else
@@ -280,13 +285,13 @@ var baseColors = [
 (function (){
 
     // Select preset colors.
-    var colorPreset = parseColors(springSet, 120);
+    var colorPreset = parseColors(shuffle(springSet), 150);
     var contentColors = colorPreset[1]; // Dark colors
     var everythingColor = contentColors[0];
     // contentColors.splice(1, 1);
     var backgroundColors = parseColors(colorPreset[0], 180)[0]; // Light colors
 
-    log(backgroundColors);
+    log(contentColors);
 
     // Get all class names.
     classNames = getClassNamesOnPage();
